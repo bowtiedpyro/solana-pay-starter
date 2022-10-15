@@ -3,11 +3,11 @@ import { PublicKey } from '@solana/web3.js';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import Product from "../components/Product";
+import Image from 'next/image';
 
 // Constants
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const IPFS_BASE = 'https://cloudflare-ipfs.com/ipfs/';
 
 const App = () => {
   // This will fetch the users' public key (wallet address) from any wallet we support
@@ -27,34 +27,31 @@ const App = () => {
   }, [publicKey]);
 
   const renderNotConnectedContainer = () => (
-    <div>
-      <img src="https://media.giphy.com/media/eSwGh3YK54JKU/giphy.gif" alt="emoji" />
-
-      <div className="button-container">
-        <WalletMultiButton className="cta-button connect-wallet-button" />
-      </div>    
+    <div className="button-container">
+      <WalletMultiButton className="cta-button connect-wallet-button" />
     </div>
   );
 
-  const renderItemBuyContainer = () => {
-    <div className="products-container">
-      {products.map((product) => {
-        <Product key={product.id} product={product} />
-      })}
-    </div>
-  }
+const renderItemBuyContainer = () => (
+  <div className="products-container">
+    {products.map((product) => (
+      <Product key={product.id} product={product} />
+    ))}
+  </div>
+);
+
 
   return (
     <div className="App">
       <div className="container">
         <header className="header-container">
-          <p className="header"> 😳 Buildspace Emoji Store 😈</p>
-          <p className="sub-text">The only emoji store that accepts shitcoins</p>
+          <p className="header"> The legend of Pyro ⋈</p>
+          <p className="sub-text">Buy your own legend of Pyro - with any coin</p>
         </header>
 
         <main>
           {/* We only render the connect button if public key doesn't exist */}
-          {publicKey ? 'Connected!' : renderNotConnectedContainer()}
+          {publicKey ? renderItemBuyContainer() : renderNotConnectedContainer()}
 
         </main>
 
